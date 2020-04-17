@@ -1,0 +1,11 @@
+.answers {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.answers__list {
+    padding: 0;
+    margin: 0;
+}

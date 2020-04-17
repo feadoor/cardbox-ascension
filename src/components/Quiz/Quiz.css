@@ -1,0 +1,9 @@
+.quiz__ended {
+    color: white;
+    font-size: 48px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
+}

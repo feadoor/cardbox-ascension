@@ -1,0 +1,17 @@
+.navbar {
+    width: 100%;
+    box-sizing: border-box;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #37474F;
+    padding: 0 30px;
+    margin-bottom: 30px;
+}
+
+.navbar__link {
+    color: #EEEEEE;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 20px;
+}

@@ -1,0 +1,57 @@
+.question {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 30px 0;
+}
+
+.question__response {
+    margin: 20px;
+}
+
+.question__results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question__results ul {
+    margin: 20px 0;
+}
+
+.question:focus {
+    outline: none;
+}
+
+.question__scramble-and-timer > :not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.question__response-button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    color: #CCCCCC;
+    font-size: 16px;
+
+    background-color: #673AB7;
+    border: 1px solid #424242;
+    border-radius: 8px;
+
+    width: 150px;
+    height: 30px;
+
+    margin: 0 10px;
+}
+
+.question__response-button--solved {
+    background-color: #4CAF50;
+}
+
+.question__response-button--missed {
+    background-color: #B71C1C;
+}

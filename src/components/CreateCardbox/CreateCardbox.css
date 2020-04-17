@@ -1,0 +1,59 @@
+.create-cardbox {
+    width: 600px;
+    height: 400px;
+    padding: 30px 60px;
+    box-sizing: border-box;
+
+    background-color: #616161;
+    border: 1px solid #9E9E9E;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.create-cardbox__title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #EEEEEE;
+    margin-bottom: 40px;
+}
+
+.create-cardbox__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.create-cardbox__form-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+
+    color: #DDDDDD;
+}
+
+.create-cardbox__form-button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    color: #EEEEEE;
+    font-size: 16px;
+
+    background-color: #673AB7;
+    border: 1px solid #424242;
+    border-radius: 8px;
+    margin: 0 auto;
+
+    width: 150px;
+    height: 30px;
+
+    background-color: #4CAF50;
+}
