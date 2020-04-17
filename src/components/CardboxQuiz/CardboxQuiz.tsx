@@ -11,23 +11,27 @@ export interface CardboxQuizProps {
 
 const CardboxQuiz: React.FC<CardboxQuizProps> = ({ questions, duration, onQuestionAnswered }) => {
 
-    const quizQuestions = questions.map(question => ({
+    const quizQuestions = shuffle(questions.map(question => ({
         scramble: randomScramble(question.letters),
         answers: question.answers
-    }));
+    })));
 
     return (
         <Quiz questions={quizQuestions} duration={duration} onQuestionEnded={(scramble, solved) => onQuestionAnswered(keyFromScramble(scramble), solved)}></Quiz>
     );
 };
 
-const randomScramble = (letters: string) => {
-    const lettersArr = [...letters];
-    for (let idx = lettersArr.length - 1; idx > 0; idx -= 1) {
+const shuffle = <T extends any>(items: T[]): T[] => {
+    const arr = [...items];
+    for (let idx = arr.length - 1; idx > 0; idx -= 1) {
         const jdx = Math.floor(Math.random() * (idx + 1));
-        [lettersArr[idx], lettersArr[jdx]] = [lettersArr[jdx], lettersArr[idx]];
+        [arr[idx], arr[jdx]] = [arr[jdx], arr[idx]];
     }
-    return lettersArr.join('');
+    return arr;
+}
+
+const randomScramble = (letters: string) => {
+    return shuffle([...letters]).join('');
 };
 
 const keyFromScramble = (scramble: string) => [...scramble].sort().join('');
