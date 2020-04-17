@@ -31,6 +31,7 @@ const Quiz: React.FC<QuizProps> = ({ questions: _questions, duration, onQuestion
                 No more questions!
             </div>}
             {questionIdx < questions.length && <div className="quiz__question">
+                <div className="quiz__heading">Question {questionIdx + 1} of {questions.length}</div>
                 <Question idx={questionIdx} scramble={questions[questionIdx].scramble} answers={questions[questionIdx].answers} duration={duration} onQuestionEnded={endQuestion}></Question>
             </div>}
         </div>
