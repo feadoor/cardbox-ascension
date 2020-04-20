@@ -108,6 +108,6 @@ const groupWordsByKey = (words: string[]): {[key: string]: string[]} => {
 const getNewDueDate = (newLevel: number) => {
     const timeNow = fb.firestore.Timestamp.now();
     const secondsInDay = 60 * 60 * 24;
-    const daysToAdd = newLevel === 0 ? 0 : Math.pow(2, Math.max(newLevel, 9) - 1);
+    const daysToAdd = newLevel === 0 ? 0 : Math.pow(2, Math.min(newLevel, 9) - 1);
     return new fb.firestore.Timestamp(timeNow.seconds + secondsInDay * daysToAdd, timeNow.nanoseconds);
 }
