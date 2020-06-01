@@ -1,0 +1,25 @@
+.quick-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quick-edit__button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    color: #EEEEEE;
+    font-size: 16px;
+
+    background-color: #673AB7;
+    border: 1px solid #424242;
+    border-radius: 8px;
+    margin-bottom: 40px;
+
+    width: 300px;
+    height: 40px;
+
+    background-color: #4CAF50;
+}
