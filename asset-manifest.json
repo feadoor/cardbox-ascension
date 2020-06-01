@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ascension/static/css/main.5ac97708.chunk.css",
+    "main.js": "/ascension/static/js/main.50a7f8e7.chunk.js",
+    "main.js.map": "/ascension/static/js/main.50a7f8e7.chunk.js.map",
+    "runtime-main.js": "/ascension/static/js/runtime-main.cdf601d0.js",
+    "runtime-main.js.map": "/ascension/static/js/runtime-main.cdf601d0.js.map",
+    "static/js/2.709306fb.chunk.js": "/ascension/static/js/2.709306fb.chunk.js",
+    "static/js/2.709306fb.chunk.js.map": "/ascension/static/js/2.709306fb.chunk.js.map",
+    "index.html": "/ascension/index.html",
+    "precache-manifest.677c2bb023164b619ea15efbb7f54563.js": "/ascension/precache-manifest.677c2bb023164b619ea15efbb7f54563.js",
+    "service-worker.js": "/ascension/service-worker.js",
+    "static/css/main.5ac97708.chunk.css.map": "/ascension/static/css/main.5ac97708.chunk.css.map",
+    "static/js/2.709306fb.chunk.js.LICENSE.txt": "/ascension/static/js/2.709306fb.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cdf601d0.js",
+    "static/js/2.709306fb.chunk.js",
+    "static/css/main.5ac97708.chunk.css",
+    "static/js/main.50a7f8e7.chunk.js"
+  ]
+}
