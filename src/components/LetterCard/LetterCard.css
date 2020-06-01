@@ -15,3 +15,19 @@
     background-color: #1565C0;
     color: white;
 }
+
+@media screen and (max-width: 500px) {
+    .letter-card {
+        width: 40px;
+        height: 40px;
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .letter-card {
+        width: 35px;
+        height: 35px;
+        font-size: 30px;
+    }
+}
