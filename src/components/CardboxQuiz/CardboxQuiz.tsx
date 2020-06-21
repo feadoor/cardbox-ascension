@@ -17,7 +17,7 @@ const CardboxQuiz: React.FC<CardboxQuizProps> = ({ questions, duration, onQuesti
     })));
 
     return (
-        <Quiz questions={quizQuestions} duration={duration} onQuestionEnded={(scramble, solved) => onQuestionAnswered(keyFromScramble(scramble), solved)}></Quiz>
+        <Quiz questions={quizQuestions} duration={duration} recycle={true} onQuestionEnded={(scramble, solved) => onQuestionAnswered(keyFromScramble(scramble), solved)}></Quiz>
     );
 };
 

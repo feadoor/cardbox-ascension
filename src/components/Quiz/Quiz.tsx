@@ -11,17 +11,18 @@ export interface QuizQuestion {
 export interface QuizProps {
     questions: QuizQuestion[];
     duration: number;
+    recycle: boolean;
     onQuestionEnded: (scramble: string, solved: boolean) => void;
 }
 
-const Quiz: React.FC<QuizProps> = ({ questions: _questions, duration, onQuestionEnded }) => {
+const Quiz: React.FC<QuizProps> = ({ questions: _questions, duration, recycle, onQuestionEnded }) => {
 
     const [questions, setQuestions] = useState(_questions);
     const [questionIdx, setQuestionIdx] = useState(0);
 
     const endQuestion = (solved: boolean) => {
         onQuestionEnded(questions[questionIdx].scramble, solved);
-        if (!solved) setQuestions([...questions, newScramble(questions[questionIdx])]);
+        if (!solved && recycle) setQuestions([...questions, newScramble(questions[questionIdx])]);
         setQuestionIdx(idx => idx + 1);
     };
 
