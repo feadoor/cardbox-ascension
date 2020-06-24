@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/cardbox-ascension/precache-manifest.2c4b14f20a1c3bec6fed08102ec72ae5.js"
+  "/cardbox-ascension/precache-manifest.8f659f4b760915f9d2b84ef83997f27e.js"
 );
 
 self.addEventListener('message', (event) => {
