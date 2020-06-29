@@ -38,7 +38,7 @@ export const hasQuestionsDue = (cardbox: string): Promise<boolean> =>
 
 export const getDueQuestions = (cardbox: string): Promise<Question[]> =>
     firebase.firestore().collection('cardboxes').doc(cardbox).collection('questions')
-        .where('due', '<=', fb.firestore.Timestamp.now()).get().then(querySnapshot =>
+        .where('due', '<=', getDueTimestamp()).get().then(querySnapshot =>
             querySnapshot.docs.map(doc => ({
                 ...doc.data(),
                 letters: doc.id
@@ -92,6 +92,13 @@ export const answerQuestion = (cardbox: string, letters: string, correct: boolea
         })
     );
 }
+
+const getDueTimestamp = () => {
+    const dueDate = new Date();
+    if (dueDate.getHours() >= 5) dueDate.setDate(dueDate.getDate() + 1); 
+    dueDate.setHours(5, 0, 0, 0);
+    return fb.firestore.Timestamp.fromDate(dueDate);
+};
 
 const dedup = (words: string[]): string[] => [...new Set(words)].sort();
 
