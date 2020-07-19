@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/cardbox-ascension/static/css/main.f191349d.chunk.css",
-    "main.js": "/cardbox-ascension/static/js/main.5d53c457.chunk.js",
-    "main.js.map": "/cardbox-ascension/static/js/main.5d53c457.chunk.js.map",
+    "main.js": "/cardbox-ascension/static/js/main.caa9eac1.chunk.js",
+    "main.js.map": "/cardbox-ascension/static/js/main.caa9eac1.chunk.js.map",
     "runtime-main.js": "/cardbox-ascension/static/js/runtime-main.8ad77da5.js",
     "runtime-main.js.map": "/cardbox-ascension/static/js/runtime-main.8ad77da5.js.map",
     "static/js/2.2bf35ab2.chunk.js": "/cardbox-ascension/static/js/2.2bf35ab2.chunk.js",
     "static/js/2.2bf35ab2.chunk.js.map": "/cardbox-ascension/static/js/2.2bf35ab2.chunk.js.map",
     "index.html": "/cardbox-ascension/index.html",
-    "precache-manifest.57e8af22625fc3795818cfb442394058.js": "/cardbox-ascension/precache-manifest.57e8af22625fc3795818cfb442394058.js",
+    "precache-manifest.5294b112415a686312b4bc2db56832bd.js": "/cardbox-ascension/precache-manifest.5294b112415a686312b4bc2db56832bd.js",
     "service-worker.js": "/cardbox-ascension/service-worker.js",
     "static/css/main.f191349d.chunk.css.map": "/cardbox-ascension/static/css/main.f191349d.chunk.css.map",
     "static/js/2.2bf35ab2.chunk.js.LICENSE.txt": "/cardbox-ascension/static/js/2.2bf35ab2.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.8ad77da5.js",
     "static/js/2.2bf35ab2.chunk.js",
     "static/css/main.f191349d.chunk.css",
-    "static/js/main.5d53c457.chunk.js"
+    "static/js/main.caa9eac1.chunk.js"
   ]
 }
