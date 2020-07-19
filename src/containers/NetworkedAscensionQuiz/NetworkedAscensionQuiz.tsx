@@ -23,7 +23,7 @@ const NetworkedAscensionQuiz: React.FC = () => {
     }
 
     return (
-        <AscensionQuiz duration={10} ascension={result} onQuestionAnswered={answerQuestion}></AscensionQuiz>
+        <AscensionQuiz duration={5} ascension={result} onQuestionAnswered={answerQuestion}></AscensionQuiz>
     );
 };
 
