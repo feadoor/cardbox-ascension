@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/cardbox-ascension/static/css/main.f191349d.chunk.css",
-    "main.js": "/cardbox-ascension/static/js/main.caa9eac1.chunk.js",
-    "main.js.map": "/cardbox-ascension/static/js/main.caa9eac1.chunk.js.map",
-    "runtime-main.js": "/cardbox-ascension/static/js/runtime-main.8ad77da5.js",
-    "runtime-main.js.map": "/cardbox-ascension/static/js/runtime-main.8ad77da5.js.map",
-    "static/js/2.2bf35ab2.chunk.js": "/cardbox-ascension/static/js/2.2bf35ab2.chunk.js",
-    "static/js/2.2bf35ab2.chunk.js.map": "/cardbox-ascension/static/js/2.2bf35ab2.chunk.js.map",
+    "main.js": "/cardbox-ascension/static/js/main.a15220a5.chunk.js",
+    "main.js.map": "/cardbox-ascension/static/js/main.a15220a5.chunk.js.map",
+    "runtime-main.js": "/cardbox-ascension/static/js/runtime-main.4270964e.js",
+    "runtime-main.js.map": "/cardbox-ascension/static/js/runtime-main.4270964e.js.map",
+    "static/js/2.1510332c.chunk.js": "/cardbox-ascension/static/js/2.1510332c.chunk.js",
+    "static/js/2.1510332c.chunk.js.map": "/cardbox-ascension/static/js/2.1510332c.chunk.js.map",
     "index.html": "/cardbox-ascension/index.html",
-    "precache-manifest.5294b112415a686312b4bc2db56832bd.js": "/cardbox-ascension/precache-manifest.5294b112415a686312b4bc2db56832bd.js",
+    "precache-manifest.9a119de32bfca133e3587675f4f5bd68.js": "/cardbox-ascension/precache-manifest.9a119de32bfca133e3587675f4f5bd68.js",
     "service-worker.js": "/cardbox-ascension/service-worker.js",
     "static/css/main.f191349d.chunk.css.map": "/cardbox-ascension/static/css/main.f191349d.chunk.css.map",
-    "static/js/2.2bf35ab2.chunk.js.LICENSE.txt": "/cardbox-ascension/static/js/2.2bf35ab2.chunk.js.LICENSE.txt"
+    "static/js/2.1510332c.chunk.js.LICENSE.txt": "/cardbox-ascension/static/js/2.1510332c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.8ad77da5.js",
-    "static/js/2.2bf35ab2.chunk.js",
+    "static/js/runtime-main.4270964e.js",
+    "static/js/2.1510332c.chunk.js",
     "static/css/main.f191349d.chunk.css",
-    "static/js/main.caa9eac1.chunk.js"
+    "static/js/main.a15220a5.chunk.js"
   ]
 }
