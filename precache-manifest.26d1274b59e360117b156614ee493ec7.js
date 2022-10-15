@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "51190ae8d43992216964d8f414802fb2",
+    "revision": "41f761c29ec5099a3ddadf04739b634b",
     "url": "/cardbox-ascension/index.html"
   },
   {
-    "revision": "c58f2664415940936a70",
+    "revision": "71c1d07b1f765d107441",
     "url": "/cardbox-ascension/static/css/main.f191349d.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cardbox-ascension/static/js/2.1510332c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c58f2664415940936a70",
-    "url": "/cardbox-ascension/static/js/main.3c5a21d8.chunk.js"
+    "revision": "71c1d07b1f765d107441",
+    "url": "/cardbox-ascension/static/js/main.a62fdc40.chunk.js"
   },
   {
     "revision": "68a92e4fe623267c73d4",
