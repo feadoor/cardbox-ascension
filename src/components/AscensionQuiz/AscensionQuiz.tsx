@@ -14,11 +14,11 @@ export interface AscensionQuizProps {
 const AscensionQuiz: React.FC<AscensionQuizProps> = ({ ascension, duration, onQuestionAnswered }) => {
 
     const quizQuestions = shuffle(ascension.waiting.map(con => ({
-        scramble: randomScramble(con),
-        answers: [con]
+        scramble: randomScramble(con.split(',')[0]),
+        answers: con.split(',')
     })));
 
-    const lookupMap = Object.assign({}, ...conundrums.map(con => ({ [keyFromScramble(con[0])]: con[0] })));
+    const lookupMap = Object.assign({}, ...conundrums.map(con => ({ [keyFromScramble(con[0])]: con.join(',') })));
 
     return (
         <Quiz questions={quizQuestions} duration={duration} recycle={false} onQuestionEnded={(scramble, solved) => onQuestionAnswered(lookupMap[keyFromScramble(scramble)], solved)}></Quiz>

@@ -14,7 +14,7 @@ import LoginPage from '../pages/LoginPage/LoginPage';
 
 const App: React.FC = () => {
     return (
-        <Router>
+        <Router basename="/cardbox-ascension">
             <div className="app">
                 <Routes></Routes>
             </div>

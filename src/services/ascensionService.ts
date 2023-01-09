@@ -14,7 +14,7 @@ export const getAscension = (): Promise<Ascension> => {
     return firebase.firestore().runTransaction(transaction => {
 
         const startNewCycle = () => {
-            const waitingConundrums = shuffle(conundrums.map(c => c[0]));
+            const waitingConundrums = shuffle(conundrums.map(c => c.join(',')));
             transaction.set(firebase.firestore().doc('ascension/ascension'), {
                 waiting: waitingConundrums,
                 solved: [],

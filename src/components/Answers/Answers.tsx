@@ -1,4 +1,5 @@
 import React from 'react';
+import { suffixes } from '../../services/dictionaryService';
 import './Answers.css';
 
 export interface AnswersProps {
@@ -10,7 +11,7 @@ const Answers: React.FC<AnswersProps> = ({ answers }) => {
         <div className="answers">
             <ul className="answers__list">
                 {answers.map((ans, idx) =>
-                    <li key={idx} className="answers__answer">{ans}</li>
+                    <li key={idx} className="answers__answer">{ans} ({suffixes(ans).join('/')})</li>
                 )}
             </ul>
         </div>

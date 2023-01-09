@@ -1,10 +1,12 @@
 import firebase from './firebase';
 import fb from 'firebase/app';
+import { isInDictionary } from './dictionaryService';
 
 export interface Cardbox {
     name: string;
     size: number;
     duration: number;
+    words: string[];
 }
 
 export interface Question {
@@ -16,7 +18,7 @@ export interface Question {
     due: Date;
 }
 
-export const getCardbox = (cardbox: string): Promise<Cardbox> =>
+export const getCardbox = (cardbox: string): Promise<Cardbox> => 
     firebase.firestore().collection('cardboxes').doc(cardbox).get().then(doc => ({
         ...doc.data(),
         name: doc.id
@@ -32,7 +34,7 @@ export const getCardboxes = (): Promise<Cardbox[]> =>
 
 export const hasQuestionsDue = (cardbox: string): Promise<boolean> =>
     firebase.firestore().collection('cardboxes').doc(cardbox).collection('questions')
-        .where('due', '<=', fb.firestore.Timestamp.now()).limit(1).get().then(querySnapshot =>
+        .where('due', '<=', getDueTimestamp()).limit(1).get().then(querySnapshot =>
             !querySnapshot.empty
         );
 
@@ -40,17 +42,18 @@ export const getDueQuestions = (cardbox: string): Promise<Question[]> =>
     firebase.firestore().collection('cardboxes').doc(cardbox).collection('questions')
         .where('due', '<=', getDueTimestamp()).get().then(querySnapshot =>
             querySnapshot.docs.map(doc => ({
-                ...doc.data(),
+                ...doc.data(), 
+                answers: doc.data().answers.filter(isInDictionary), 
                 letters: doc.id
             } as Question))
-        );
+        .filter(q => q.answers.length > 0));
 
 export const createCardbox = (name: string, duration: number): Promise<void> => {
     const docRef = firebase.firestore().collection('cardboxes').doc(name);
     return firebase.firestore().runTransaction(transaction =>
         transaction.get(docRef).then(doc => {
             if (!doc.exists) {
-                transaction.set(docRef, { size: 0, duration: duration });
+                transaction.set(docRef, { size: 0, duration: duration, words: [] });
             }
         })
     );
@@ -68,11 +71,14 @@ export const addWords = (cardbox: string, words: string[]): Promise<void[]> => {
             const docRef = firebase.firestore().collection('cardboxes').doc(cardbox).collection('questions').doc(key);
             return transaction.get(docRef).then(doc => {
                 if (!doc.exists) {
-                    transaction.update(cardboxRef, { size: fb.firestore.FieldValue.increment(1) });
+                    transaction.update(cardboxRef, { size: fb.firestore.FieldValue.increment(1), words: fb.firestore.FieldValue.arrayUnion(...wordsByKey[key])});
                     transaction.set(docRef, { answers: wordsByKey[key], asked: 0, answeredCorrectly: 0, level: 0, due: fb.firestore.Timestamp.now() });
                 } else {
                     const existingAnswers = (doc.data() as Question).answers;
-                    transaction.update(docRef, { answers: dedup([...existingAnswers, ...wordsByKey[key]]) });
+                    if (wordsByKey[key].some(ans => !existingAnswers.includes(ans))) {
+                        transaction.update(cardboxRef, { words: fb.firestore.FieldValue.arrayUnion(wordsByKey[key])});
+                        transaction.update(docRef, { answers: dedup([...existingAnswers, ...wordsByKey[key]]), due: fb.firestore.Timestamp.now() });
+                    }
                 }
             })
         })
