@@ -21,21 +21,21 @@ const addToHighProb = () =>
     getCardbox('High Probability').then(cardbox => {
         const wordsInCardbox = new Set(cardbox.words);
         const wordsToAdd = highprob.filter(ws => ws.some(word => !wordsInCardbox.has(word))).slice(0, 100).flatMap(ws => ws);
-        return addWords('High Probability', wordsToAdd);
+        return addWords('High Probability', cardbox.offset, wordsToAdd);
     })
 
 const addToHighProb9 = () =>
     getCardbox('High Probability Nines').then(cardbox => {
         const wordsInCardbox = new Set(cardbox.words);
         const wordsToAdd = highprob9.filter(ws => ws.some(word => !wordsInCardbox.has(word))).slice(0, 100).flatMap(ws => ws);
-        return addWords('High Probability Nines', wordsToAdd);
+        return addWords('High Probability Nines', cardbox.offset, wordsToAdd);
     })
 
 const addTo5Vowels = () =>
     getCardbox('5 Vowels').then(cardbox => {
         const wordsInCardbox = new Set(cardbox.words);
         const wordsToAdd = fiveVowels.filter(ws => ws.some(word => !wordsInCardbox.has(word))).slice(0, 100).flatMap(ws => ws);
-        return addWords('5 Vowels', wordsToAdd);
+        return addWords('5 Vowels', cardbox.offset, wordsToAdd);
     })
 
 export default NetworkedQuickEdit;

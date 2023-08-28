@@ -14,7 +14,7 @@ const NetworkedEditCardbox: React.FC<NetworkedEditCardboxProps> = ({ cardbox, af
     const saveChanges = (duration: number, offset: number, words: string[]) => Promise.all([
         setDuration(cardbox, duration),
         setOffset(cardbox, offset),
-        addWords(cardbox, words)
+        addWords(cardbox, offset, words)
     ]).then(afterChangesSaved);
 
     const { doRequest, result, error, inProgress } = useAsyncRequest((cardbox: string) =>

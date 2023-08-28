@@ -68,8 +68,10 @@ export const setOffset = (cardbox: string, offset: number): Promise<void> => {
     return firebase.firestore().collection('cardboxes').doc(cardbox).update({ offset: offset });
 }
 
-export const addWords = (cardbox: string, words: string[]): Promise<void[]> => {
+export const addWords = (cardbox: string, offset: number, words: string[]): Promise<void[]> => {
     const wordsByKey = groupWordsByKey(words);
+    const dueDate = new Date();
+    dueDate.setDate(dueDate.getDate() - offset);
     return Promise.all(Object.keys(wordsByKey).map(key =>
         firebase.firestore().runTransaction(transaction => {
             const cardboxRef = firebase.firestore().collection('cardboxes').doc(cardbox);
@@ -77,12 +79,12 @@ export const addWords = (cardbox: string, words: string[]): Promise<void[]> => {
             return transaction.get(docRef).then(doc => {
                 if (!doc.exists) {
                     transaction.update(cardboxRef, { size: fb.firestore.FieldValue.increment(1), words: fb.firestore.FieldValue.arrayUnion(...wordsByKey[key])});
-                    transaction.set(docRef, { answers: wordsByKey[key], asked: 0, answeredCorrectly: 0, level: 0, due: fb.firestore.Timestamp.now() });
+                    transaction.set(docRef, { answers: wordsByKey[key], asked: 0, answeredCorrectly: 0, level: 0, due: fb.firestore.Timestamp.fromDate(dueDate) });
                 } else {
                     const existingAnswers = (doc.data() as Question).answers;
                     if (wordsByKey[key].some(ans => !existingAnswers.includes(ans))) {
                         transaction.update(cardboxRef, { words: fb.firestore.FieldValue.arrayUnion(wordsByKey[key])});
-                        transaction.update(docRef, { answers: dedup([...existingAnswers, ...wordsByKey[key]]), due: fb.firestore.Timestamp.now() });
+                        transaction.update(docRef, { answers: dedup([...existingAnswers, ...wordsByKey[key]]), due: fb.firestore.Timestamp.fromDate(dueDate) });
                     }
                 }
             })
