@@ -8,7 +8,7 @@ const NetworkedCardboxList: React.FC = () => {
 
     const { doRequest, result, error, inProgress } = useAsyncRequest<void, CardboxListProps['cardboxes'], undefined>(() =>
         getCardboxes().then(cardboxes => Promise.all(cardboxes.map(cardbox =>
-            hasQuestionsDue(cardbox.name).then(due => ({ name: cardbox.name, size: cardbox.size, hasQuestionsDue: due}))
+            hasQuestionsDue(cardbox.name, cardbox.offset).then(due => ({ name: cardbox.name, size: cardbox.size, hasQuestionsDue: due}))
         )))
     );
 

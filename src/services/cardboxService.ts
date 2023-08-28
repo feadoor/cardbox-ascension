@@ -6,6 +6,7 @@ export interface Cardbox {
     name: string;
     size: number;
     duration: number;
+    offset: number;
     words: string[];
 }
 
@@ -32,28 +33,28 @@ export const getCardboxes = (): Promise<Cardbox[]> =>
         } as Cardbox))
     );
 
-export const hasQuestionsDue = (cardbox: string): Promise<boolean> =>
+export const hasQuestionsDue = (cardbox: string, offset: number): Promise<boolean> =>
     firebase.firestore().collection('cardboxes').doc(cardbox).collection('questions')
-        .where('due', '<=', getDueTimestamp()).limit(1).get().then(querySnapshot =>
+        .where('due', '<=', getDueTimestamp(offset)).limit(1).get().then(querySnapshot =>
             !querySnapshot.empty
-        );
+        )
 
-export const getDueQuestions = (cardbox: string): Promise<Question[]> =>
+export const getDueQuestions = (cardbox: string, offset: number): Promise<Question[]> =>
     firebase.firestore().collection('cardboxes').doc(cardbox).collection('questions')
-        .where('due', '<=', getDueTimestamp()).get().then(querySnapshot =>
+        .where('due', '<=', getDueTimestamp(offset)).get().then(querySnapshot =>
             querySnapshot.docs.map(doc => ({
                 ...doc.data(), 
                 answers: doc.data().answers.filter(isInDictionary), 
                 letters: doc.id
             } as Question))
-        .filter(q => q.answers.length > 0));
+        .filter(q => q.answers.length > 0))
 
 export const createCardbox = (name: string, duration: number): Promise<void> => {
     const docRef = firebase.firestore().collection('cardboxes').doc(name);
     return firebase.firestore().runTransaction(transaction =>
         transaction.get(docRef).then(doc => {
             if (!doc.exists) {
-                transaction.set(docRef, { size: 0, duration: duration, words: [] });
+                transaction.set(docRef, { size: 0, duration: duration, offset: 0, words: [] });
             }
         })
     );
@@ -61,6 +62,10 @@ export const createCardbox = (name: string, duration: number): Promise<void> => 
 
 export const setDuration = (cardbox: string, duration: number): Promise<void> => {
     return firebase.firestore().collection('cardboxes').doc(cardbox).update({ duration: duration });
+}
+
+export const setOffset = (cardbox: string, offset: number): Promise<void> => {
+    return firebase.firestore().collection('cardboxes').doc(cardbox).update({ offset: offset });
 }
 
 export const addWords = (cardbox: string, words: string[]): Promise<void[]> => {
@@ -99,12 +104,13 @@ export const answerQuestion = (cardbox: string, letters: string, correct: boolea
     );
 }
 
-const getDueTimestamp = () => {
+const getDueTimestamp = (offset: number) => {
     const dueDate = new Date();
-    if (dueDate.getHours() >= 5) dueDate.setDate(dueDate.getDate() + 1); 
+    if (dueDate.getHours() >= 5) dueDate.setDate(dueDate.getDate() + 1);
+    dueDate.setDate(dueDate.getDate() - offset);
     dueDate.setHours(5, 0, 0, 0);
     return fb.firestore.Timestamp.fromDate(dueDate);
-};
+}
 
 const dedup = (words: string[]): string[] => [...new Set(words)].sort();
 
@@ -116,11 +122,11 @@ const groupWordsByKey = (words: string[]): {[key: string]: string[]} => {
         groups[key].push(word);
     });
     return groups;
-}
+};
 
 const getNewDueDate = (newLevel: number) => {
     const timeNow = fb.firestore.Timestamp.now();
     const secondsInDay = 60 * 60 * 24;
     const daysToAdd = newLevel === 0 ? 0 : Math.pow(2, Math.min(newLevel, 9) - 1);
     return new fb.firestore.Timestamp(timeNow.seconds + secondsInDay * daysToAdd, timeNow.nanoseconds);
-}
+};

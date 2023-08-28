@@ -2,7 +2,7 @@ import React from 'react';
 
 import EditCardbox from '../../components/EditCardbox/EditCardbox';
 import useAsyncRequest from '../../hooks/useAsyncRequest';
-import { getCardbox, setDuration, addWords,  } from '../../services/cardboxService';
+import { getCardbox, setDuration, addWords, setOffset,  } from '../../services/cardboxService';
 
 export interface NetworkedEditCardboxProps {
     cardbox: string;
@@ -11,8 +11,9 @@ export interface NetworkedEditCardboxProps {
 
 const NetworkedEditCardbox: React.FC<NetworkedEditCardboxProps> = ({ cardbox, afterChangesSaved }) => {
 
-    const saveChanges = (duration: number, words: string[]) => Promise.all([
+    const saveChanges = (duration: number, offset: number, words: string[]) => Promise.all([
         setDuration(cardbox, duration),
+        setOffset(cardbox, offset),
         addWords(cardbox, words)
     ]).then(afterChangesSaved);
 
@@ -26,7 +27,7 @@ const NetworkedEditCardbox: React.FC<NetworkedEditCardboxProps> = ({ cardbox, af
 
     if (result === undefined) { return <div></div>; }
 
-    return <EditCardbox cardbox={cardbox} duration={result.duration} onChangesSaved={saveChanges}></EditCardbox>
+    return <EditCardbox cardbox={cardbox} duration={result.duration} offset={result.offset} onChangesSaved={saveChanges}></EditCardbox>
 };
 
 export default NetworkedEditCardbox;

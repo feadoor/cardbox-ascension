@@ -4,17 +4,19 @@ import './EditCardbox.css';
 export interface EditCardboxProps {
     cardbox: string;
     duration: number;
-    onChangesSaved: (duration: number, words: string[]) => void;
+    offset: number;
+    onChangesSaved: (duration: number, offset: number, words: string[]) => void;
 }
 
-const EditCardbox: React.FC<EditCardboxProps> = ({ cardbox, duration: _duration, onChangesSaved }) => {
+const EditCardbox: React.FC<EditCardboxProps> = ({ cardbox, duration: _duration, offset: _offset, onChangesSaved }) => {
 
     const [duration, setDuration] = useState(_duration);
+    const [offset, setOffset] = useState(_offset);
     const [words, setWords] = useState('');
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        onChangesSaved(duration, words.split(/\s+/));
+        onChangesSaved(duration, offset, words.split(/\s+/).filter(w => w.length > 0));
     }
 
     return (
@@ -24,6 +26,10 @@ const EditCardbox: React.FC<EditCardboxProps> = ({ cardbox, duration: _duration,
                 <label className="edit-cardbox__form-field">
                     Duration
                     <input className="edit-cardbox__form-input" type="number" required value={duration} onChange={e => setDuration(+e.target.value)}></input>
+                </label>
+                <label className="edit-cardbox__form-field">
+                    Offset
+                    <input className="edit-cardbox__form-input" type="number" required value={offset} onChange={e => setOffset(+e.target.value)}></input>
                 </label>
                 <label className="edit-cardbox__form-field">
                     Add words

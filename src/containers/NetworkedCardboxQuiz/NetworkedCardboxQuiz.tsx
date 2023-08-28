@@ -11,25 +11,20 @@ export interface NetworkedCardboxQuizProps {
 
 const NetworkedCardboxQuiz: React.FC<NetworkedCardboxQuizProps> = ({ cardbox }) => {
 
-    const { doRequest: doCardboxRequest, result: cardboxResult, error: cardboxError, inProgress: cardboxInProgress } = useAsyncRequest((cardbox: string) =>
-        getCardbox(cardbox)
+    const { doRequest, result, error, inProgress } = useAsyncRequest((cardbox: string) => 
+        getCardbox(cardbox).then(cardboxResult => getDueQuestions(cardbox, cardboxResult.offset).then(questionsResult => ({
+            cardbox: cardboxResult,
+            questions: questionsResult,
+        })))
     )
 
-    const { doRequest: doQuestionsRequest, result: questionsResult, error: questionsError, inProgress: questionsInProgress } = useAsyncRequest((cardbox: string) =>
-        getDueQuestions(cardbox)
-    );
-
-    if (!cardboxInProgress && cardboxError === undefined && cardboxResult === undefined) {
-        doCardboxRequest(cardbox);
+    if (!inProgress && error === undefined && result === undefined) {
+        doRequest(cardbox);
     }
 
-    if (!questionsInProgress && questionsError === undefined && questionsResult === undefined) {
-        doQuestionsRequest(cardbox);
-    }
+    if (result === undefined) { return <div></div>; }
 
-    if (cardboxResult === undefined || questionsResult === undefined) { return <div></div>; }
-
-    return <CardboxQuiz duration={cardboxResult.duration} questions={questionsResult} onQuestionAnswered={(letters, solved) => answerQuestion(cardboxResult.name, letters, solved)}></CardboxQuiz>;
+    return <CardboxQuiz duration={result.cardbox.duration} questions={result.questions} onQuestionAnswered={(letters, solved) => answerQuestion(result.cardbox.name, letters, solved)}></CardboxQuiz>;
 };
 
 export default NetworkedCardboxQuiz;
