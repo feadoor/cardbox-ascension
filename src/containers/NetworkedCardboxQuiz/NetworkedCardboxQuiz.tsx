@@ -24,7 +24,7 @@ const NetworkedCardboxQuiz: React.FC<NetworkedCardboxQuizProps> = ({ cardbox }) 
 
     if (result === undefined) { return <div></div>; }
 
-    return <CardboxQuiz duration={result.cardbox.duration} questions={result.questions} onQuestionAnswered={(letters, solved) => answerQuestion(result.cardbox.name, letters, solved)}></CardboxQuiz>;
+    return <CardboxQuiz duration={result.cardbox.duration} questions={result.questions} onQuestionAnswered={(letters, solved) => answerQuestion(result.cardbox.name, result.cardbox.offset, letters, solved)}></CardboxQuiz>;
 };
 
 export default NetworkedCardboxQuiz;

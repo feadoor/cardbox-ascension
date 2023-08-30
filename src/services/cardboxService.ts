@@ -92,13 +92,13 @@ export const addWords = (cardbox: string, offset: number, words: string[]): Prom
     ));
 }
 
-export const answerQuestion = (cardbox: string, letters: string, correct: boolean) => {
+export const answerQuestion = (cardbox: string, offset: number, letters: string, correct: boolean) => {
     const docRef = firebase.firestore().collection('cardboxes').doc(cardbox).collection('questions').doc(letters);
     return firebase.firestore().runTransaction(transaction =>
         transaction.get(docRef).then(doc => {
             const data = doc.data() as Question;
             const newLevel = correct ? data.level + 1 : 0;
-            const newDueDate = getNewDueDate(newLevel);
+            const newDueDate = getNewDueDate(newLevel, offset);
             const newAsked = data.asked + 1;
             const newAnsweredCorrectly = correct ? data.answeredCorrectly + 1 : data.answeredCorrectly;
             transaction.update(docRef, { level: newLevel, due: newDueDate, asked: newAsked, answeredCorrectly: newAnsweredCorrectly });
@@ -126,9 +126,9 @@ const groupWordsByKey = (words: string[]): {[key: string]: string[]} => {
     return groups;
 };
 
-const getNewDueDate = (newLevel: number) => {
+const getNewDueDate = (newLevel: number, offset: number) => {
     const timeNow = fb.firestore.Timestamp.now();
     const secondsInDay = 60 * 60 * 24;
     const daysToAdd = newLevel === 0 ? 0 : Math.pow(2, Math.min(newLevel, 9) - 1);
-    return new fb.firestore.Timestamp(timeNow.seconds + secondsInDay * daysToAdd, timeNow.nanoseconds);
+    return new fb.firestore.Timestamp(timeNow.seconds + secondsInDay * (daysToAdd - offset), timeNow.nanoseconds);
 };
