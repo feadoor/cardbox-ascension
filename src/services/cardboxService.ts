@@ -129,6 +129,8 @@ const groupWordsByKey = (words: string[]): {[key: string]: string[]} => {
 const getNewDueDate = (newLevel: number, offset: number) => {
     const timeNow = fb.firestore.Timestamp.now();
     const secondsInDay = 60 * 60 * 24;
-    const daysToAdd = newLevel === 0 ? 0 : Math.pow(2, Math.min(newLevel, 9) - 1);
+    const upperDays = newLevel === 0 ? 0 : Math.pow(2, Math.min(newLevel, 9) - 1);
+    const lowerDays = newLevel === 0 ? 0 : Math.max(1, Math.floor(upperDays * 2 / 3));
+    const daysToAdd = Math.floor(Math.random() * (upperDays - lowerDays + 1)) + lowerDays;
     return new fb.firestore.Timestamp(timeNow.seconds + secondsInDay * (daysToAdd - offset), timeNow.nanoseconds);
 };
