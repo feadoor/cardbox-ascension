@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/cardbox-ascension/static/css/main.2a56b45a.css",
-    "main.js": "/cardbox-ascension/static/js/main.74f65c28.js",
+    "main.js": "/cardbox-ascension/static/js/main.cc6dfbd9.js",
     "index.html": "/cardbox-ascension/index.html",
     "main.2a56b45a.css.map": "/cardbox-ascension/static/css/main.2a56b45a.css.map",
-    "main.74f65c28.js.map": "/cardbox-ascension/static/js/main.74f65c28.js.map"
+    "main.cc6dfbd9.js.map": "/cardbox-ascension/static/js/main.cc6dfbd9.js.map"
   },
   "entrypoints": [
     "static/css/main.2a56b45a.css",
-    "static/js/main.74f65c28.js"
+    "static/js/main.cc6dfbd9.js"
   ]
 }
