@@ -1,6 +1,6 @@
 import firebase from './firebase';
 import fb from 'firebase/app';
-import { isInDictionary, validAnagrams } from './dictionaryService';
+import { validAnagrams } from './dictionaryService';
 
 export interface Cardbox {
     name: string;
@@ -113,8 +113,6 @@ const getDueTimestamp = (offset: number) => {
     dueDate.setHours(5, 0, 0, 0);
     return fb.firestore.Timestamp.fromDate(dueDate);
 }
-
-const dedup = (words: string[]): string[] => [...new Set(words)].sort();
 
 const groupWordsByKey = (words: string[]): {[key: string]: string[]} => {
     const groups: {[key: string]: string[]} = {};
