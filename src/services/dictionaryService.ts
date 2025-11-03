@@ -1,10 +1,14 @@
 import aptodict from '../data/aptodict.json';
+import anadict from '../data/anadict.json';
 
 export const isInDictionary = (word: string): boolean =>
     indexInDictionary(word) !== -1;
 
 export const suffixes = (word: string): string[] =>
     wordsBeginningWith(word).slice(1).map(w => w.slice(word.length))
+
+export const validAnagrams = (key: string): string[] =>
+    (anadict as {[s: string]: string[]})[[...key].sort().join('')] ?? []
 
 const wordsBeginningWith = (word: string): string[] => {
     let index = indexInDictionary(word);

@@ -1,6 +1,6 @@
 import firebase from './firebase';
 import fb from 'firebase/app';
-import { isInDictionary } from './dictionaryService';
+import { isInDictionary, validAnagrams } from './dictionaryService';
 
 export interface Cardbox {
     name: string;
@@ -44,7 +44,7 @@ export const getDueQuestions = (cardbox: string, offset: number): Promise<Questi
         .where('due', '<=', getDueTimestamp(offset)).get().then(querySnapshot =>
             querySnapshot.docs.map(doc => ({
                 ...doc.data(), 
-                answers: doc.data().answers.filter(isInDictionary), 
+                answers: validAnagrams(doc.id), 
                 letters: doc.id
             } as Question))
         .filter(q => q.answers.length > 0))
@@ -79,12 +79,12 @@ export const addWords = (cardbox: string, offset: number, words: string[]): Prom
             return transaction.get(docRef).then(doc => {
                 if (!doc.exists) {
                     transaction.update(cardboxRef, { size: fb.firestore.FieldValue.increment(1), words: fb.firestore.FieldValue.arrayUnion(...wordsByKey[key])});
-                    transaction.set(docRef, { answers: wordsByKey[key], asked: 0, answeredCorrectly: 0, level: 0, due: fb.firestore.Timestamp.fromDate(dueDate) });
+                    transaction.set(docRef, { asked: 0, answeredCorrectly: 0, level: 0, due: fb.firestore.Timestamp.fromDate(dueDate) });
                 } else {
                     const existingAnswers = (doc.data() as Question).answers;
                     if (wordsByKey[key].some(ans => !existingAnswers.includes(ans))) {
                         transaction.update(cardboxRef, { words: fb.firestore.FieldValue.arrayUnion(wordsByKey[key])});
-                        transaction.update(docRef, { answers: dedup([...existingAnswers, ...wordsByKey[key]]), due: fb.firestore.Timestamp.fromDate(dueDate) });
+                        transaction.update(docRef, { due: fb.firestore.Timestamp.fromDate(dueDate) });
                     }
                 }
             })
