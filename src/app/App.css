@@ -5,6 +5,6 @@
 }
 
 .app__content {
-    max-width: min(1008px, 98vw);
+    max-width: 1008px;
     margin: 0 10px;
 }
