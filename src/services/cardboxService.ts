@@ -81,11 +81,8 @@ export const addWords = (cardbox: string, offset: number, words: string[]): Prom
                     transaction.update(cardboxRef, { size: fb.firestore.FieldValue.increment(1), words: fb.firestore.FieldValue.arrayUnion(...wordsByKey[key])});
                     transaction.set(docRef, { asked: 0, answeredCorrectly: 0, level: 0, due: fb.firestore.Timestamp.fromDate(dueDate) });
                 } else {
-                    const existingAnswers = (doc.data() as Question).answers;
-                    if (wordsByKey[key].some(ans => !existingAnswers.includes(ans))) {
-                        transaction.update(cardboxRef, { words: fb.firestore.FieldValue.arrayUnion(wordsByKey[key])});
-                        transaction.update(docRef, { due: fb.firestore.Timestamp.fromDate(dueDate) });
-                    }
+                    transaction.update(cardboxRef, { words: fb.firestore.FieldValue.arrayUnion(wordsByKey[key])});
+                    transaction.update(docRef, { due: fb.firestore.Timestamp.fromDate(dueDate) });
                 }
             })
         })
